@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #2563eb;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --background: #f3f4f6;
+  --card: #ffffff;
+}
+
+body {
+  background-color: var(--background);
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-family);
+}
+
+/* Dark theme variables and overrides. The ThemeProvider toggles `html.dark` class. */
+html.dark {
+  --primary: #60a5fa;
+  --success: #34d399;
+  --warning: #f59e0b;
+  --error: #f87171;
+  --background: #0f172a;
+  --card: #111827;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+}
+
+html.dark body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+/* Make interactive elements use pointer cursor by default */
+a, button, [role="button"] {
+  cursor: pointer;
+}
+
+/* Sidebar / navigation font adjustments */
+aside {
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Slightly different text appearance in dark mode for better readability */
+html.dark {
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --text-weight: 400;
+}
+
+html.dark .text-sm { font-weight: 400; }
+
+
+/* Utility overrides for common Tailwind utility classes so dark mode works even without
+   a Tailwind config. These make many common containers and text colors respect the theme. */
+html.dark .bg-white { background-color: var(--card) !important; }
+html.dark .bg-gray-50 { background-color: transparent !important; }
+html.dark .bg-gray-100 { background-color: transparent !important; }
+html.dark .bg-gray-900 { background-color: #0b1220 !important; }
+
+html.dark .text-gray-900, html.dark .text-gray-800 { color: var(--text) !important; }
+html.dark .text-gray-500 { color: var(--muted) !important; }
+
+html.dark .border-gray-200, html.dark .border-gray-100 { border-color: rgba(255,255,255,0.06) !important; }
+html.dark .border-gray-800 { border-color: rgba(255,255,255,0.04) !important; }
+
+/* Buttons and interactive elements fallback */
+html.dark .hover\:bg-gray-50:hover { background-color: rgba(255,255,255,0.02) !important; }
+html.dark .hover\:bg-gray-800:hover { background-color: rgba(255,255,255,0.02) !important; }
+
+/* Table rows */
+html.dark .bg-white table, html.dark table { background-color: transparent; }
+
