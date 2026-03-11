@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Home, History, Calendar, User, Sun, Moon } from 'lucide-react';
+import { Home, History, Calendar, User, Sun, Moon, Clock } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
 const WorkerLayout: React.FC = () => {
@@ -8,6 +8,7 @@ const WorkerLayout: React.FC = () => {
 
     const navItems = [
         { path: '/', label: 'Home', icon: Home },
+        { path: '/attendance', label: 'Attendance', icon: Clock },
         { path: '/history', label: 'History', icon: History },
         { path: '/earnings', label: 'Earnings', icon: Calendar },
         { path: '/profile', label: 'Profile', icon: User },
@@ -16,29 +17,31 @@ const WorkerLayout: React.FC = () => {
     const { theme, toggleTheme } = useTheme();
 
     return (
-            <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 pb-16 md:pb-0">
+            <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-slate-950 pb-16 md:pb-0">
             {/* Top Header for Mobile */}
             <header className="bg-blue-600 text-white p-4 shadow-md sticky top-0 z-10 md:hidden flex items-center justify-between">
                     <h1 className="text-xl font-bold">Production Tracker</h1>
                 <button
                     onClick={toggleTheme}
                     title={theme === 'dark' ? 'Switch to light' : 'Switch to dark'}
-                    className="p-2 rounded bg-blue-500/20 hover:bg-blue-500/30"
+                    className="flex items-center gap-2 px-3 py-2 rounded-full bg-blue-500/20 hover:bg-blue-500/30 text-sm font-medium"
                 >
-                    {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                    {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                    <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
                 </button>
             </header>
 
             {/* Main Sidebar for Desktop */}
-                <aside className="hidden md:flex md:flex-col w-64 bg-blue-700 dark:bg-blue-900 text-white fixed h-full">
+                <aside className="hidden md:flex md:flex-col w-64 bg-blue-700 dark:bg-slate-900 text-white fixed h-full">
                 <div className="p-4 border-b border-blue-600 flex items-center justify-between">
                     <div className="text-xl font-bold">SDMS</div>
                     <button
                         onClick={toggleTheme}
                         title={theme === 'dark' ? 'Switch to light' : 'Switch to dark'}
-                        className="p-2 rounded hover:bg-blue-600/40"
+                        className="flex items-center gap-2 px-3 py-2 rounded-full bg-blue-600/40 hover:bg-blue-500/70 text-xs font-medium"
                     >
-                        {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                        {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+                        <span className="hidden sm:inline">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
                     </button>
                 </div>
                 <nav className="flex-1 p-4 space-y-2">

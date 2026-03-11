@@ -43,11 +43,26 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     const setTheme = (t: Theme) => {
         setThemeState(t);
-        try { localStorage.setItem(THEME_KEY, t); } catch (e) { /* ignore */ }
+        try {
+            localStorage.setItem(THEME_KEY, t);
+        } catch {
+            // ignore storage errors
+        }
         applyThemeClass(t);
     };
 
-    const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+    const toggleTheme = () => {
+        setThemeState((prev) => {
+            const next: Theme = prev === 'dark' ? 'light' : 'dark';
+            try {
+                localStorage.setItem(THEME_KEY, next);
+            } catch {
+                // ignore storage errors
+            }
+            applyThemeClass(next);
+            return next;
+        });
+    };
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

@@ -17,12 +17,14 @@ import WorkerHistory from './pages/worker/History';
 import WorkerEarnings from './pages/worker/Earnings';
 import WorkerProfile from './pages/worker/Profile';
 import ProductionEntryForm from './pages/worker/ProductionEntryForm';
+import WorkerAttendance from './pages/worker/Attendance';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminWorkers from './pages/admin/Workers';
 import AdminSheetTypes from './pages/admin/SheetTypes';
 import AdminReports from './pages/admin/Reports';
+import AdminAttendance from './pages/admin/Attendance';
 
 const App: React.FC = () => {
     return (
@@ -37,6 +39,7 @@ const App: React.FC = () => {
                     <Route element={<ProtectedRoute workerOnly />}>
                         <Route path="/" element={<WorkerLayout />}>
                             <Route index element={<WorkerDashboard />} />
+                            <Route path="attendance" element={<WorkerAttendance />} />
                             <Route path="history" element={<WorkerHistory />} />
                             <Route path="earnings" element={<WorkerEarnings />} />
                             <Route path="profile" element={<WorkerProfile />} />
@@ -50,6 +53,7 @@ const App: React.FC = () => {
                             <Route index element={<AdminDashboard />} />
                             <Route path="workers" element={<AdminWorkers />} />
                             <Route path="sheet-types" element={<AdminSheetTypes />} />
+                            <Route path="attendance" element={<AdminAttendance />} />
                             <Route path="reports" element={<AdminReports />} />
                         </Route>
                     </Route>

@@ -1,5 +1,16 @@
 import api from './api';
-import type { Worker, SheetType, ProductionEntry, MonthlyEarnings, WorkerMonthlyReport } from '../types/models';
+import type {
+    Worker,
+    SheetType,
+    ProductionEntry,
+    MonthlyEarnings,
+    WorkerMonthlyReport,
+    AttendanceRecord,
+    AttendanceStatusResponse,
+    PendingAttendanceItem,
+    ApprovedAttendanceItem,
+    AttendanceCalendarResponse,
+} from '../types/models';
 
 export const authService = {
     login: async (email: string, password: string) => {
@@ -101,5 +112,56 @@ export const productionService = {
     getDailyStats: async (date: string) => {
         const response = await api.get(`/production/stats/daily?date=${date}`);
         return response.data;
+    },
+};
+
+export const attendanceService = {
+    timeIn: async (): Promise<AttendanceRecord> => {
+        const response = await api.post<{ success: boolean; message: string; data: AttendanceRecord }>(
+            '/attendance/time-in'
+        );
+        return response.data.data;
+    },
+
+    myStatus: async (): Promise<AttendanceStatusResponse> => {
+        const response = await api.get<{ success: boolean; message: string; data: AttendanceStatusResponse }>(
+            '/attendance/my-status'
+        );
+        return response.data.data;
+    },
+
+    getPending: async (): Promise<PendingAttendanceItem[]> => {
+        const response = await api.get<{ success: boolean; message: string; data: PendingAttendanceItem[] }>(
+            '/attendance/pending'
+        );
+        return response.data.data;
+    },
+
+    getRecentApproved: async (): Promise<ApprovedAttendanceItem[]> => {
+        const response = await api.get<{ success: boolean; message: string; data: ApprovedAttendanceItem[] }>(
+            '/attendance/recent-approved'
+        );
+        return response.data.data;
+    },
+
+    approve: async (id: number): Promise<AttendanceRecord> => {
+        const response = await api.patch<{ success: boolean; message: string; data: AttendanceRecord }>(
+            `/attendance/${id}/approve`
+        );
+        return response.data.data;
+    },
+
+    reject: async (id: number): Promise<AttendanceRecord> => {
+        const response = await api.patch<{ success: boolean; message: string; data: AttendanceRecord }>(
+            `/attendance/${id}/reject`
+        );
+        return response.data.data;
+    },
+
+    getMyCalendar: async (monthStr: string): Promise<AttendanceCalendarResponse> => {
+        const response = await api.get<{ success: boolean; message: string; data: AttendanceCalendarResponse }>(
+            `/attendance/my-calendar?month=${monthStr}`
+        );
+        return response.data.data;
     },
 };

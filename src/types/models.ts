@@ -62,6 +62,53 @@ export interface WorkerMonthlyReport {
     totalEarnings: string;
 }
 
+export type AttendanceStatus = 'pending' | 'approved' | 'rejected';
+
+export interface AttendanceRecord {
+    id: number;
+    workerId: string;
+    date: string;
+    status: AttendanceStatus;
+    timeIn: string | null;
+    timeApproved: string | null;
+}
+
+export interface AttendanceStatusResponse {
+    hasRecord: boolean;
+    record: AttendanceRecord | null;
+}
+
+export interface PendingAttendanceItem {
+    id: number;
+    date: string;
+    status: AttendanceStatus;
+    timeIn: string | null;
+    worker: {
+        id: string;
+        name?: string;
+        email?: string;
+    };
+}
+
+export interface ApprovedAttendanceItem {
+    id: number;
+    date: string;
+    status: AttendanceStatus;
+    timeIn: string | null;
+    timeApproved: string | null;
+    worker: {
+        id: string;
+        name?: string;
+        email?: string;
+    };
+}
+
+export interface AttendanceCalendarResponse {
+    year: number;
+    month: number;
+    records: AttendanceRecord[];
+}
+
 export interface ApiResponse<T> {
     success: boolean;
     message?: string;
